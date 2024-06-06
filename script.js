@@ -72,6 +72,8 @@ function entrevistaAluno() {
 }
 
 /* LabScore pt.1 - Exercício 6 */
+let materiasMedia = [];
+
 function notasMateria() {
   let materia = window.prompt("Qual o nome da matéria?");
   let notas = [];
@@ -89,8 +91,11 @@ function notasMateria() {
 
   let media = calculaMedia(dadosMateria.notas);
 
+  materiasMedia.push(media);
+
   adicionarLinhaTabela(dadosMateria,media);
 
+  exibirMediaGeral();
 }
 
 /* LabScore pt.1 - Exercício 7 */
@@ -111,7 +116,7 @@ function encontrarMaiorNumero(numeros) {
 //------------------ Mini-projeto ------------------//
 
 // LabScore pt.2 - Exercício 2
-//entrevistaAluno();
+entrevistaAluno();
 
 // LabScore pt.2 - Exercício 4
 
@@ -130,4 +135,12 @@ tagTbody.innerHTML += `
   <td>${media}</td>
   </tr>
   `;
+}
+
+// LabScore pt.2 - Exercício 5
+
+function exibirMediaGeral() {
+  const mediaGeral = calculaMedia(materiasMedia);
+
+  document.getElementById("media-geral").textContent = `A média geral do aluno é ${mediaGeral}`;
 }
