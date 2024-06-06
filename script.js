@@ -165,7 +165,8 @@ function calcularMediasTabelaHTML(tabelaSelector = "", classeColunaDeBusca = "co
  * O elemento do seletor deve ser uma tabela, e o querySelector deve ser um id ou uma classe.
  * @param {number[]} mediasMaterias 
  * @param {number} mediaGeral 
- * @param {number} casasAposVirgula - Quantidade de casas decimais para conter em todos os valores.
+ * @param {number} casasAposVirgula - Quantidade de casas decimais
+ * para conter em todos os valores após aproximação. Não irá aproximar se for undefined.
  */
   function atualizarMedias(tabelaSelector, mediasMaterias, mediaGeral, casasAposVirgula) {
     const tabelaLinhas = document.querySelectorAll(`table${tabelaSelector} tbody tr`);
@@ -175,7 +176,8 @@ function calcularMediasTabelaHTML(tabelaSelector = "", classeColunaDeBusca = "co
     linha.children[linha.children.length-1].textContent = arredondar(mediasMaterias[i], casasAposVirgula);
   }
 
-  document.getElementById("notas-valor-media-geral").textContent = arredondar(mediaGeral, casasAposVirgula);
+  document.getElementById("notas-valor-media-geral")
+    .textContent = casasAposVirgula === undefined ?  mediaGeral : arredondar(mediaGeral, casasAposVirgula);
 }
 
 function arredondar(numero, precisao) {
