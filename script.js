@@ -68,6 +68,7 @@ function entrevistaAluno() {
   } else {
     window.alert(`Os dados não foram confirmados. Não há dados para exibir.`);
   }
+
 }
 
 /* LabScore pt.1 - Exercício 6 */
