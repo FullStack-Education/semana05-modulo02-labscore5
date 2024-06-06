@@ -44,6 +44,12 @@ function entrevistaAluno() {
   let escola = window.prompt("Qual o nome da escola?");
   let materia = window.prompt("Qual a sua matéria favorita?");
 
+  let spanNome = document.getElementById("nome");
+  let spanIdade = document.getElementById("idade");
+  let spanSerie = document.getElementById("serie");
+  let spanEscola = document.getElementById("escola");
+  let spanMateria = document.getElementById("materia");
+
   let dadosAluno = `Você confirma os dados inseridos?
     Nome do aluno: ${nome}
     Idade do aluno: ${idade}
@@ -53,14 +59,15 @@ function entrevistaAluno() {
 
   let confirmacao = window.confirm(dadosAluno);
 
-  return confirmacao
-    ? document.write(`
-      <span>Nome do aluno: <strong>${nome}</strong></span><br>
-      <span>Idade do aluno: <strong>${idade}</strong></span><br>
-      <span>Série do aluno: <strong>${serie}</strong></span><br>
-      <span>Nome da escola: <strong>${escola}</strong></span><br>
-      <span>Matéria favorita: <strong>${materia}</strong></span><br>`)
-    : document.write(`<p>Os dados não foram confirmados.</p>`);
+  if (confirmacao) {
+    spanNome.innerText = nome;
+    spanIdade.innerText = idade;
+    spanSerie.innerText = serie;
+    spanEscola.innerText = escola;
+    spanMateria.innerText = materia;
+  } else {
+    window.alert(`Os dados não foram confirmados. Não há dados para exibir.`);
+  }
 }
 
 /* LabScore pt.1 - Exercício 6 */
