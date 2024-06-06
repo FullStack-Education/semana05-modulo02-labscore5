@@ -100,23 +100,30 @@ function encontrarMaiorNumero(numeros) {
   return maiorNumero;
 }
 
-// entrevistarAluno();
+entrevistarAluno();
 {
-  const medias = calcularMediasTabelaHTML("#notas-materias", "coluna-notas");
+  const medias = calcularMediasTabelaHTML("#notas-materias");
   atualizarMedias("#notas-materias", medias.mediasMaterias, medias.mediaGeral, 1);
 }
 
 /* LabScore pt.2 - Exercício 5 e 6 */
 
 /**
+ * Busca o texto interno das células de uma tabela e, 
+ * se a célula do head na mesma coluna houver a classe do parâmetro classeColunaDeBusca, 
+ * transforma em número e guarda em uma matriz. 
+ * Por fim, um objeto é retornado com os valores processados.
  * @param {string} tabelaSelector - O seletor querySelector utilizado para selecionar a tabela em si. 
  * O elemento do seletor deve ser uma tabela, e o querySelector deve ser um id ou uma classe.
  * @param {string} classeColunaDeBusca - Somente o nome da classe que será utilizada
  * para filtrar as colunas que são e as que não são para considerar.
  * A classe deve estar na célula do header (em um th), e toda a coluna dessa célula será considerada.
- * @returns {{notas: number[][], mediasMaterias: number[], mediaGeral: number}}
+ * @returns {{notas: number[][], mediasMaterias: number[], mediaGeral: number}} 
+ * notas: matriz numérica bidimensional no formato da tabela HTML.\
+ * mediasMaterias: Matriz com valores das médias de cada matéria, na ordem da tabela.\
+ * mediaGeral: Média de todas as notas.
  */
-function calcularMediasTabelaHTML(tabelaSelector = "", classeColunaDeBusca = "coluna-valor", casasAposVirgula = 1) {
+function calcularMediasTabelaHTML(tabelaSelector = "", classeColunaDeBusca = "coluna-valor") {
   const tabelaHeadElements = document.querySelectorAll(`table${tabelaSelector} thead tr th`);
   const tabelaLinhas = document.querySelectorAll(`table${tabelaSelector} tbody tr`);
 
@@ -136,16 +143,10 @@ function calcularMediasTabelaHTML(tabelaSelector = "", classeColunaDeBusca = "co
     const children = linha.children;
     for (let i = 0; i < children.length; i++) {
       if (colunasDeNotas.includes(i)) {
-        notas[notas.length-1].push(children[i].textContent);
+        notas[notas.length-1].push(parseFloat(children[i].textContent));
         }
     }
-
-    Array.from(linha.children).forEach((celula) => {
-      Array(notas[notas.length-1]).push(celula.value);
-    })
   })
-
-  notas = notas.map((notasDeMateria) => notasDeMateria.map((valor) => parseFloat(valor)));
 
   mediasMaterias = notas.map((notasDeMateria) => calcularMedia(notasDeMateria));
 
@@ -159,6 +160,7 @@ function calcularMediasTabelaHTML(tabelaSelector = "", classeColunaDeBusca = "co
 }
 
 /**
+ * Atualiza as médias na tabela HTML baseado nos parâmetros dados.
  * @param {string} tabelaSelector - O seletor querySelector utilizado para selecionar a tabela em si. 
  * O elemento do seletor deve ser uma tabela, e o querySelector deve ser um id ou uma classe.
  * @param {number[]} mediasMaterias 
