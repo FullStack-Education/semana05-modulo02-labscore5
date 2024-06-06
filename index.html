@@ -50,14 +50,14 @@
             <h2>Notas das Matérias</h2>
             <button>Adicionar Linha</button>
           </div>
-          <table>
+          <table id="notas-materias">
             <thead>
               <tr>
                 <th>Matéria</th>
-                <th>Nota 1</th>
-                <th>Nota 2</th>
-                <th>Nota 3</th>
-                <th>Nota 4</th>
+                <th class="coluna-notas">Nota 1</th>
+                <th class="coluna-notas">Nota 2</th>
+                <th class="coluna-notas">Nota 3</th>
+                <th class="coluna-notas">Nota 4</th>
                 <th>Média</th>
               </tr>
             </thead>
@@ -75,7 +75,7 @@
 
           <div class="media">
             <h3>Média Geral do Aluno</h3>
-            <p>A média geral do aluno é 7.6</p>
+            <p>A média geral do aluno é <span id="notas-valor-media-geral">7.6</span></p>
           </div>
 
           <div class="media">

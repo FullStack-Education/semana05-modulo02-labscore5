@@ -1,7 +1,7 @@
 /* LabScore pt.1 - Exercício 1 */
 let listaNotas = [8, 10, 7, 5];
 
-function calculaMedia(notas) {
+function calcularMedia(notas) {
   let soma = 0;
   for (let i = 0; i < notas.length; i++) {
     soma += notas[i];
@@ -10,7 +10,7 @@ function calculaMedia(notas) {
   return media;
 }
 
-let mediaNotas = calculaMedia(listaNotas);
+let mediaNotas = calcularMedia(listaNotas);
 
 /* LabScore pt.1 - Exercício 2 */
 function resultadoFinal(media) {
@@ -37,7 +37,7 @@ function tabuada(numero) {
 }
 
 /* LabScore pt.1 - Exercício 5 */
-function entrevistaAluno() {
+function entrevistarAluno() {
   let nome = window.prompt("Qual o nome do aluno?");
   let idade = window.prompt("Qual a idade do aluno?");
   let serie = window.prompt("Qual a série do aluno?");
@@ -79,7 +79,7 @@ function notasMateria() {
     notas: notas,
   };
 
-  let media = calculaMedia(dadosMateria.notas);
+  let media = calcularMedia(dadosMateria.notas);
 
   document.write(`
     <span>Matéria: <strong>${dadosMateria.nomeMateria}</strong></span><br>
@@ -100,4 +100,82 @@ function encontrarMaiorNumero(numeros) {
   return maiorNumero;
 }
 
-entrevistaAluno();
+// entrevistarAluno();
+{
+  const medias = calcularMediasTabelaHTML("#notas-materias", "coluna-notas");
+  atualizarMedias("#notas-materias", medias.mediasMaterias, medias.mediaGeral, 1);
+}
+
+/* LabScore pt.2 - Exercício 5 e 6 */
+
+/**
+ * @param {string} tabelaSelector - O seletor querySelector utilizado para selecionar a tabela em si. 
+ * O elemento do seletor deve ser uma tabela, e o querySelector deve ser um id ou uma classe.
+ * @param {string} classeColunaDeBusca - Somente o nome da classe que será utilizada
+ * para filtrar as colunas que são e as que não são para considerar.
+ * A classe deve estar na célula do header (em um th), e toda a coluna dessa célula será considerada.
+ * @returns {{notas: number[][], mediasMaterias: number[], mediaGeral: number}}
+ */
+function calcularMediasTabelaHTML(tabelaSelector = "", classeColunaDeBusca = "coluna-valor", casasAposVirgula = 1) {
+  const tabelaHeadElements = document.querySelectorAll(`table${tabelaSelector} thead tr th`);
+  const tabelaLinhas = document.querySelectorAll(`table${tabelaSelector} tbody tr`);
+
+  let colunasDeNotas = [];
+
+  for (let i = 0; i < tabelaHeadElements.length; i++) {
+    if (tabelaHeadElements[i].classList.contains(classeColunaDeBusca)) {
+      colunasDeNotas.push(i);
+    }
+  } 
+
+  let notas = [];
+
+  tabelaLinhas.forEach((linha) => {
+    notas.push([]);
+
+    const children = linha.children;
+    for (let i = 0; i < children.length; i++) {
+      if (colunasDeNotas.includes(i)) {
+        notas[notas.length-1].push(children[i].textContent);
+        }
+    }
+
+    Array.from(linha.children).forEach((celula) => {
+      Array(notas[notas.length-1]).push(celula.value);
+    })
+  })
+
+  notas = notas.map((notasDeMateria) => notasDeMateria.map((valor) => parseFloat(valor)));
+
+  mediasMaterias = notas.map((notasDeMateria) => calcularMedia(notasDeMateria));
+
+  mediaGeral = calcularMedia(mediasMaterias);
+  
+  return {
+    notas: notas, 
+    mediasMaterias: mediasMaterias, 
+    mediaGeral: mediaGeral
+  };
+}
+
+/**
+ * @param {string} tabelaSelector - O seletor querySelector utilizado para selecionar a tabela em si. 
+ * O elemento do seletor deve ser uma tabela, e o querySelector deve ser um id ou uma classe.
+ * @param {number[]} mediasMaterias 
+ * @param {number} mediaGeral 
+ * @param {number} casasAposVirgula - Quantidade de casas decimais para conter em todos os valores.
+ */
+  function atualizarMedias(tabelaSelector, mediasMaterias, mediaGeral, casasAposVirgula) {
+    const tabelaLinhas = document.querySelectorAll(`table${tabelaSelector} tbody tr`);
+
+  for (let i = 0; i < tabelaLinhas.length; i++) {
+    const linha = tabelaLinhas[i];
+    linha.children[linha.children.length-1].textContent = arredondar(mediasMaterias[i], casasAposVirgula);
+  }
+
+  document.getElementById("notas-valor-media-geral").textContent = arredondar(mediaGeral, casasAposVirgula);
+}
+
+function arredondar(numero, precisao) {
+    return parseFloat(Number(numero).toPrecision(precisao+1));
+}
