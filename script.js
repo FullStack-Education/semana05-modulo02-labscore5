@@ -81,10 +81,12 @@ function notasMateria() {
 
   let media = calculaMedia(dadosMateria.notas);
 
-  document.write(`
-    <span>Matéria: <strong>${dadosMateria.nomeMateria}</strong></span><br>
-    <span>Notas: <strong>[${dadosMateria.notas.join(", ")}]</strong></span><br>
-    <span>Média: <strong>${media}</strong></span><br>`);
+  adicionarLinhaTabela(dadosMateria,media);
+
+  // document.write(`
+  //   <span>Matéria: <strong>${dadosMateria.nomeMateria}</strong></span><br>
+  //   <span>Notas: <strong>[${dadosMateria.notas.join(", ")}]</strong></span><br>
+  //   <span>Média: <strong>${media}</strong></span><br>`);
 }
 
 /* LabScore pt.1 - Exercício 7 */
@@ -100,4 +102,28 @@ function encontrarMaiorNumero(numeros) {
   return maiorNumero;
 }
 
-entrevistaAluno();
+
+
+//------------------ Mini-projeto ------------------//
+
+// LabScore pt.2 - Exercício 2
+//entrevistaAluno();
+
+// LabScore pt.2 - Exercício 4
+
+const botao = document.getElementById("add-notas");
+botao.addEventListener("click",  notasMateria);
+
+function adicionarLinhaTabela(dadosMateria, media ){
+let tagTbody = document.querySelector("section.notas tbody");
+tagTbody.innerHTML += `
+  <tr>
+  <td>${dadosMateria.nomeMateria}</td>
+  <td>${dadosMateria.notas[0]}</td>
+  <td>${dadosMateria.notas[1]}</td>
+  <td>${dadosMateria.notas[2]}</td>
+  <td>${dadosMateria.notas[3]}</td>
+  <td>${media}</td>
+  </tr>
+  `;
+}
