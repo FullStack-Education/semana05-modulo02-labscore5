@@ -83,10 +83,6 @@ function notasMateria() {
 
   adicionarLinhaTabela(dadosMateria,media);
 
-  // document.write(`
-  //   <span>Matéria: <strong>${dadosMateria.nomeMateria}</strong></span><br>
-  //   <span>Notas: <strong>[${dadosMateria.notas.join(", ")}]</strong></span><br>
-  //   <span>Média: <strong>${media}</strong></span><br>`);
 }
 
 /* LabScore pt.1 - Exercício 7 */
