@@ -1,6 +1,14 @@
 # SENAI Fullstack [Education]
 
-## Resolução dos exercícios da Semana 05 - Módulo 02
+## Resolução dos exercícios da Semana 05 - Módulo 02 - Mini Projeto
+
+### Equipe:
+
+- Bruno Miguel Corrêa
+- Cheryl Henkels de Souza
+- Gustavo Rafael dos Santos
+- João Victor de Souza Olivo
+- Scheila Stihler
 
 ### M2S05 | Parte 2 do LabScore - Roteiro
 
