@@ -60,7 +60,7 @@ function entrevistaAluno() {
       <span>Série do aluno: <strong>${serie}</strong></span><br>
       <span>Nome da escola: <strong>${escola}</strong></span><br>
       <span>Matéria favorita: <strong>${materia}</strong></span><br>`)
-    : document.write(`<p>Os dados não foram confirmados.</p>`);
+    : window.alert("Os dados não foram confirmados.");
 }
 
 /* LabScore pt.1 - Exercício 6 */
