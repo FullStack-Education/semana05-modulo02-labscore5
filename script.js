@@ -96,6 +96,7 @@ function notasMateria() {
   adicionarLinhaTabela(dadosMateria,media);
 
   exibirMediaGeral();
+  exibirMaiorMedia();
 }
 
 /* LabScore pt.1 - Exercício 7 */
@@ -137,10 +138,18 @@ tagTbody.innerHTML += `
   `;
 }
 
-// LabScore pt.2 - Exercício 5
+// LabScore pt.2 - Exercício 5 e 6
 
 function exibirMediaGeral() {
   const mediaGeral = calculaMedia(materiasMedia);
 
   document.getElementById("media-geral").textContent = `A média geral do aluno é ${mediaGeral}`;
+}
+
+// LabScore pt.2 - Exercício 7
+
+function exibirMaiorMedia(){
+  const maiorMedia = encontrarMaiorNumero(materiasMedia);
+
+  document.getElementById("maior-media").textContent = `A maior média entre as médias é ${maiorMedia}`;
 }
