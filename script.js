@@ -1,7 +1,7 @@
 /* LabScore pt.1 - Exercício 1 */
 let listaNotas = [8, 10, 7, 5];
 
-function calculaMedia(notas) {
+function calcularMedia(notas) {
   let soma = 0;
   for (let i = 0; i < notas.length; i++) {
     soma += notas[i];
@@ -10,7 +10,7 @@ function calculaMedia(notas) {
   return media;
 }
 
-let mediaNotas = calculaMedia(listaNotas);
+let mediaNotas = calcularMedia(listaNotas);
 
 /* LabScore pt.1 - Exercício 2 */
 function resultadoFinal(media) {
@@ -37,7 +37,7 @@ function tabuada(numero) {
 }
 
 /* LabScore pt.1 - Exercício 5 */
-function entrevistaAluno() {
+function entrevistarAluno() {
   let nome = window.prompt("Qual o nome do aluno?");
   let idade = window.prompt("Qual a idade do aluno?");
   let serie = window.prompt("Qual a série do aluno?");
@@ -68,7 +68,6 @@ function entrevistaAluno() {
   } else {
     window.alert(`Os dados não foram confirmados. Não há dados para exibir.`);
   }
-
 }
 
 /* LabScore pt.1 - Exercício 6 */
@@ -89,11 +88,11 @@ function notasMateria() {
     notas: notas,
   };
 
-  let media = calculaMedia(dadosMateria.notas);
+  let media = calcularMedia(dadosMateria.notas);
 
   materiasMedia.push(media);
 
-  adicionarLinhaTabela(dadosMateria,media);
+  adicionarLinhaTabela(dadosMateria, media);
 
   exibirMediaGeral();
   exibirMaiorMedia();
@@ -112,44 +111,43 @@ function encontrarMaiorNumero(numeros) {
   return maiorNumero;
 }
 
-
-
 //------------------ Mini-projeto ------------------//
 
 // LabScore pt.2 - Exercício 2
-entrevistaAluno();
+entrevistarAluno();
 
 // LabScore pt.2 - Exercício 4
-
 const botao = document.getElementById("add-notas");
-botao.addEventListener("click",  notasMateria);
+botao.addEventListener("click", notasMateria);
 
-function adicionarLinhaTabela(dadosMateria, media ){
-let tagTbody = document.querySelector("section.notas tbody");
-tagTbody.innerHTML += `
+function adicionarLinhaTabela(dadosMateria, media) {
+  let tagTbody = document.querySelector("section.notas tbody");
+  tagTbody.innerHTML += `
   <tr>
-  <td>${dadosMateria.nomeMateria}</td>
-  <td>${dadosMateria.notas[0]}</td>
-  <td>${dadosMateria.notas[1]}</td>
-  <td>${dadosMateria.notas[2]}</td>
-  <td>${dadosMateria.notas[3]}</td>
-  <td>${media}</td>
+    <td>${dadosMateria.nomeMateria}</td>
+    <td>${dadosMateria.notas[0]}</td>
+    <td>${dadosMateria.notas[1]}</td>
+    <td>${dadosMateria.notas[2]}</td>
+    <td>${dadosMateria.notas[3]}</td>
+    <td>${media}</td>
   </tr>
   `;
 }
 
 // LabScore pt.2 - Exercício 5 e 6
-
 function exibirMediaGeral() {
-  const mediaGeral = calculaMedia(materiasMedia);
+  const mediaGeral = calcularMedia(materiasMedia);
 
-  document.getElementById("media-geral").textContent = `A média geral do aluno é ${mediaGeral}`;
+  document.getElementById(
+    "media-geral"
+  ).textContent = `A média geral do aluno é ${mediaGeral}`;
 }
 
 // LabScore pt.2 - Exercício 7
-
-function exibirMaiorMedia(){
+function exibirMaiorMedia() {
   const maiorMedia = encontrarMaiorNumero(materiasMedia);
 
-  document.getElementById("maior-media").textContent = `A maior média entre as médias é ${maiorMedia}`;
+  document.getElementById(
+    "maior-media"
+  ).textContent = `A maior média entre as matérias é ${maiorMedia}`;
 }
