@@ -195,7 +195,7 @@ function exibirMediaGeral() {
 // LabScore pt.2 - Exercício 7
 
 function exibirMaiorMedia(){
-  const maiorMedia = encontrarMaiorNumero(materiasMedia);
+  const maiorMedia = encontrarMaior(materiasMedia);
 
   document.getElementById("maior-media").textContent = `A maior média entre as médias é ${maiorMedia}`;
 }
