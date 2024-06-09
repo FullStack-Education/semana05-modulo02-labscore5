@@ -1,7 +1,12 @@
 /* LabScore pt.1 - Exercício 1 */
 let listaNotas = [8, 10, 7, 5];
 
-function calculaMedia(notas) {
+/**
+ * Calcula a média aritmética dos valores do array notas.
+ * @param {number[]} notas Array de notas numéricas
+ * @returns {number} A média de todas as notas
+ */
+function calcularMedia(notas) {
   let soma = 0;
   for (let i = 0; i < notas.length; i++) {
     soma += notas[i];
@@ -10,9 +15,14 @@ function calculaMedia(notas) {
   return media;
 }
 
-let mediaNotas = calculaMedia(listaNotas);
+let mediaNotas = calcularMedia(listaNotas);
 
 /* LabScore pt.1 - Exercício 2 */
+/**
+ * Processa o desempenho através da media e retorna um elemento HTML de resposta para esse aluno.
+ * @param {number} media Média a ser verificada para processar o resultado final.
+ * @returns {string} Elemento HTML em texto.
+ */
 function resultadoFinal(media) {
   return media >= 7
     ? `<p>Média: <strong>${media}</strong>.<br> Parabéns, você passou na média!</p>`
@@ -22,13 +32,21 @@ function resultadoFinal(media) {
 /* LabScore pt.1 - Exercício 3 */
 let listaAlunos = ["Pedro", "Maria", "João", "Paula"];
 
-function imprimirNomes(nomes) {
-  return nomes.forEach((aluno) => {
+/**
+ * Escreve na tela o conteúdo de cada elemento do array nomes.
+ * @param {array} nomes Array de nomes a serem escritos na tela.
+ */
+function escreverNomes(nomes) {
+  nomes.forEach((aluno) => {
     document.write(`${aluno}<br>`);
   });
 }
 
 /* LabScore pt.1 - Exercício 4 */
+/**
+ * Calcula e exibe na tela através de um document.write(...) a tabuada do número informado com os primeiros 10 múltiplos.
+ * @param {number} numero Utilizado para calcular os 10 primeiros múltiplos dele.
+ */
 function tabuada(numero) {
   for (let i = 0; i <= 10; i++) {
     let resultado = numero * i;
@@ -37,12 +55,21 @@ function tabuada(numero) {
 }
 
 /* LabScore pt.1 - Exercício 5 */
-function entrevistaAluno() {
+/**
+ * Faz a requisição dos dados de um aluno e exibe-os na tela do usuário
+ */
+function entrevistarAluno() {
   let nome = window.prompt("Qual o nome do aluno?");
   let idade = window.prompt("Qual a idade do aluno?");
   let serie = window.prompt("Qual a série do aluno?");
   let escola = window.prompt("Qual o nome da escola?");
   let materia = window.prompt("Qual a sua matéria favorita?");
+
+  let spanNome = document.getElementById("nome");
+  let spanIdade = document.getElementById("idade");
+  let spanSerie = document.getElementById("serie");
+  let spanEscola = document.getElementById("escola");
+  let spanMateria = document.getElementById("materia");
 
   let dadosAluno = `Você confirma os dados inseridos?
     Nome do aluno: ${nome}
@@ -53,17 +80,26 @@ function entrevistaAluno() {
 
   let confirmacao = window.confirm(dadosAluno);
 
-  return confirmacao
-    ? document.write(`
-      <span>Nome do aluno: <strong>${nome}</strong></span><br>
-      <span>Idade do aluno: <strong>${idade}</strong></span><br>
-      <span>Série do aluno: <strong>${serie}</strong></span><br>
-      <span>Nome da escola: <strong>${escola}</strong></span><br>
-      <span>Matéria favorita: <strong>${materia}</strong></span><br>`)
-    : document.write(`<p>Os dados não foram confirmados.</p>`);
+  if (confirmacao) {
+    spanNome.innerText = nome;
+    spanIdade.innerText = idade;
+    spanSerie.innerText = serie;
+    spanEscola.innerText = escola;
+    spanMateria.innerText = materia;
+  } else {
+    window.alert(`Os dados não foram confirmados. Não há dados para exibir.`);
+  }
 }
 
 /* LabScore pt.1 - Exercício 6 */
+let materiasMedia = [];
+/**
+ * Requisita os dados necessários para inserir uma nova linha na tabela HTML através do window.prompt(...)
+ * e adiciona através da função adicionarLinhaTabela(...).
+ *
+ * Adiciona ao array materiasMedia[] a média de uma matéria a cada chamada
+ * e chama a função exibirMediaGeral() para atualizar o HTML.
+ */
 function notasMateria() {
   let materia = window.prompt("Qual o nome da matéria?");
   let notas = [];
@@ -79,25 +115,83 @@ function notasMateria() {
     notas: notas,
   };
 
-  let media = calculaMedia(dadosMateria.notas);
+  let media = calcularMedia(dadosMateria.notas);
 
-  document.write(`
-    <span>Matéria: <strong>${dadosMateria.nomeMateria}</strong></span><br>
-    <span>Notas: <strong>[${dadosMateria.notas.join(", ")}]</strong></span><br>
-    <span>Média: <strong>${media}</strong></span><br>`);
+  materiasMedia.push(media);
+
+  adicionarLinhaTabela(dadosMateria, media);
+
+  exibirMediaGeral();
+  exibirMaiorMedia();
 }
 
 /* LabScore pt.1 - Exercício 7 */
-function encontrarMaiorNumero(numeros) {
-  let maiorNumero = numeros[0];
+/**
+ * Retorna o maior elemento do array.
+ * Um elemento é considerado o maior se `ele > qualquer outro elemento do array`.
+ * @param {array} array Array de elementos a ser verificado.
+ * @returns  {any} O maior elemento do array numeros.
+ */
+function encontrarMaior(array) {
+  let maiorElemento = array[0];
 
-  for (let i = 1; i < numeros.length; i++) {
-    if (numeros[i] > maiorNumero) {
-      maiorNumero = numeros[i];
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] > maiorElemento) {
+      maiorElemento = array[i];
     }
   }
 
-  return maiorNumero;
+  return maiorElemento;
 }
 
-entrevistaAluno();
+//------------------ Mini-projeto ------------------//
+
+// LabScore pt.2 - Exercício 2
+entrevistarAluno();
+
+// LabScore pt.2 - Exercício 4
+const botao = document.getElementById("add-notas");
+botao.addEventListener("click", notasMateria);
+
+/**
+ * Adiciona uma nova linha na tabela com querySelector `section.notas tbody` baseado nos dados recebidos.
+ * @param {{nomeMateria: string, notas: number[]}} dadosMateria Objeto utilizado para criar a nova linha da tabela.
+ * @param {number} media Média da matéria para adicionar na tabela.
+ */
+function adicionarLinhaTabela(dadosMateria, media) {
+  let tagTbody = document.querySelector("section.notas tbody");
+  tagTbody.innerHTML += `
+  <tr>
+    <td>${dadosMateria.nomeMateria}</td>
+    <td>${dadosMateria.notas[0]}</td>
+    <td>${dadosMateria.notas[1]}</td>
+    <td>${dadosMateria.notas[2]}</td>
+    <td>${dadosMateria.notas[3]}</td>
+    <td>${media}</td>
+  </tr>
+  `;
+}
+
+// LabScore pt.2 - Exercício 5 e 6
+/**
+ * Altera o conteúdo de texto do elemento HTML de id `media-geral` para exibir a média geral entre as matérias.
+ */
+function exibirMediaGeral() {
+  const mediaGeral = calcularMedia(materiasMedia);
+
+  document.getElementById(
+    "media-geral"
+  ).textContent = `A média geral do aluno é ${mediaGeral}`;
+}
+
+// LabScore pt.2 - Exercício 7
+/**
+ * Altera o conteúdo de texto do elemento HTML de id `maior-media` para exibir a maior média entre as matérias.
+ */
+function exibirMaiorMedia() {
+  const maiorMedia = encontrarMaior(materiasMedia);
+
+  document.getElementById(
+    "maior-media"
+  ).textContent = `A maior média entre as matérias é ${maiorMedia}`;
+}
